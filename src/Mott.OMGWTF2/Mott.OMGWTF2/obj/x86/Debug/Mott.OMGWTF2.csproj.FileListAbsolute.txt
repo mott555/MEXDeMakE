@@ -1,0 +1,5 @@
+E:\Personal\Development\OMGWTF2\src\Mott.OMGWTF2\Mott.OMGWTF2\bin\Debug\Mott.OMGWTF2.exe
+E:\Personal\Development\OMGWTF2\src\Mott.OMGWTF2\Mott.OMGWTF2\bin\Debug\Mott.OMGWTF2.pdb
+E:\Personal\Development\OMGWTF2\src\Mott.OMGWTF2\Mott.OMGWTF2\obj\x86\Debug\Mott.OMGWTF2.exe
+E:\Personal\Development\OMGWTF2\src\Mott.OMGWTF2\Mott.OMGWTF2\obj\x86\Debug\Mott.OMGWTF2.pdb
+E:\Personal\Development\OMGWTF2\src\Mott.OMGWTF2\Mott.OMGWTF2\bin\Debug\EnterpriseConfig.xml
