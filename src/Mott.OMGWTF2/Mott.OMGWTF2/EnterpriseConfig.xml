@@ -1,7 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <EnterpriseDecisionConfiguration™ version="0.1">
+  <add key="configFileName" value="EnterpriseConfig.xml" />
+  <add key="serverPort" value="8181" />
   <add key="keyIncrementCfg" value="1" />
   <add key="decisions" value="true,false" />
-  <add key="workFactor" value="14" />
+  <add key="workFactor" value="8" />
   <add key="padding" value="Padding to keep parser from blowing up. This must be the last key." />
 </EnterpriseDecisionConfiguration™>
