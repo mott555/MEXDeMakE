@@ -1,3 +1,21 @@
+/* Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)
+ * Copyright (C) 2013 mott555
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ * */
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +34,7 @@ namespace Mott.OMGWTF2
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE).");
-            Console.WriteLine("Copyright © 2013 TJ Mott");
+            Console.WriteLine("Copyright © 2013 mott555");
             Console.WriteLine();
             Console.Write("Performing hardware check...");
             // Sanity checks on hardware. Run multiple times to make sure.
@@ -214,6 +232,9 @@ namespace Mott.OMGWTF2
                             }
                         }
                         break;
+                    case 22:
+                        GC.Collect();
+                        break;
                     case 14:
                         string fileName = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                         int lastSlash = fileName.LastIndexOf('\\');
@@ -258,6 +279,9 @@ namespace Mott.OMGWTF2
                             strings.Append(" 3: Show decision values\n");
                             strings.Append(" 4: Show entropy data set\n");
                             strings.Append(" 5: Edit enterprise configuration\n");
+                            strings.Append(" 6: Show menu\n");
+                            strings.Append(" 7: Show time\n");
+                            strings.Append(" 8: About\n");
                             strings.Append("\n");
                             Console.Write(strings);
                             string line = Console.ReadLine();
@@ -333,6 +357,22 @@ namespace Mott.OMGWTF2
                                 fileName1 = fileName1 + "\\EnterpriseConfig.xml";
                                 Process p = Process.Start("notepad", fileName1);
                             }
+                            else if (line == "6")
+                            {
+                                // Console.Write(strings);
+                                //Console.ReadKey();
+                                MyMethod(notUsed);
+
+                                MyMethod(menu, tagList, decisionList, workFactor);
+                            }
+                            else if (line == "8")
+                            {
+                                // Console.Write(strings);
+                                //Console.ReadKey();
+                                MyMethod(notUsed);
+                                MyMethod(44444);
+                                MyMethod(menu, tagList, decisionList, workFactor);
+                            }
                             else
                             {
                                 // Console.Write(strings);
@@ -380,6 +420,13 @@ namespace Mott.OMGWTF2
                             position1++;
                         }
                         return int.Parse(value);
+                        break;
+                    case 90:
+                        Random random = new Random();
+                        return random.Next();
+                        break;
+                    case 91:
+                        return incrementIntegr((int)args[1]);
                         break;
                     case 890:
                         return "http://forums.thedailywtf.com/tags/default.aspx";
@@ -443,7 +490,7 @@ namespace Mott.OMGWTF2
                     case 33333:
                         object[] myArr1 = (object[])args[1];
                         List<string> myStrings = new List<string>();
-                        for (int i = 0; i < myArr1.Length; i = incrementIntegr(i))
+                        for (int i = 0; i < myArr1.Length; i = (int)MyMethod(91, i))
                         {
                             object objValue = myArr1[i];
                             string strValue = (string)objValue;
@@ -460,6 +507,11 @@ namespace Mott.OMGWTF2
                                 throw new Exception("Invalid processor count, please run this on a computer that has at least one processor.");
                                 return false;
                             }
+                            if (System.Environment.TickCount < 0)
+                            {
+                                throw new Exception("Computer time problems.");
+                                return false;
+                            }
                             // Make sure hardware ALU works.
                             if (1 + 1 != 2)
                             {
@@ -473,7 +525,7 @@ namespace Mott.OMGWTF2
                             }
 
                             /*
-                             * Always happened, comment out for now.
+                             * Always happens, comment out for now.
                             if (3 + 3 != 7)
                             {
                                 throw new Exception("Invalid math result.");
@@ -529,8 +581,22 @@ namespace Mott.OMGWTF2
                         }
                         return true;
                         break;
+                    case 44444:
+                        StringBuilder myString1s = new StringBuilder();
+                        myString1s.AppendLine("About:");
+                        myString1s.AppendLine("Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)");
+                        myString1s.AppendLine("Copyright © 2013 mott555. All rights reserved.");
+                        myString1s.AppendLine("Version 2.1.2");
+                        myString1s.AppendLine("");
+                        myString1s.AppendLine("MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner.");
+                        myString1s.AppendLine("");
+                        myString1s.AppendLine("Press enter to return to main menu.");
+                        Console.WriteLine(myString1s);
+                        Console.ReadLine();
+                        break;
                     case 999999:
                         // Give garbate collector chance to run.
+                        MyMethod(22);
                         System.Threading.Thread.Sleep(1500);
                         throw new Exception("Normal application termination");
                         break;
@@ -616,9 +682,90 @@ namespace Mott.OMGWTF2
                         List<string> decisions = (List<String>)(args[2] as List<string>);
                         int workFactor = (int)args[3];
 
-                        // Random class isn't random enough. Use TDWTF tags for additional randomness.
-                        Random random = new Random();
+                        Random random = new Random((int)MyMethod(90));
+                        for (int i = 0; i < Math.Pow(2, workFactor); i = incrementIntegr(i))
+                        {
+                            int seed = random.Next();
 
+                            for (int k = 0; k < 30; k++)
+                            {
+                                int op = random.Next();
+                                if (op.ToString().EndsWith("1"))
+                                {
+                                    int tmpSeed = seed + random.Next();
+                                    seed = tmpSeed;
+                                }
+                                else if (op.ToString().EndsWith("2"))
+                                {
+                                    int tmpSeed = seed - random.Next();
+                                    seed = tmpSeed;
+                                }
+                                else if (op.ToString().EndsWith("3"))
+                                {
+                                    string strSeed = seed.ToString();
+                                    int index = random.Next(strSeed.Length);
+                                    for (int ii = 0; ii < strSeed.Length; ii++)
+                                    {
+                                        if (ii == index)
+                                        {
+                                            string str1 = strSeed.Substring(0, ii);
+                                            string str2 = strSeed.Substring(ii + 1);
+                                            strSeed = str1 + str2;
+                                        }
+                                    }
+                                    int tmpSeed = int.Parse(strSeed);
+                                    tmpSeed = seed;
+                                }
+                                else if (op.ToString().EndsWith("4"))
+                                {
+                                    int tmpSeed = seed + random.Next() - seed;
+                                    seed = tmpSeed;
+                                }
+                                else if (op.ToString().EndsWith("5"))
+                                {
+                                    int tmpSeed = seed * -1;
+                                    seed = tmpSeed;
+                                }
+                                else if (op.ToString().EndsWith("6"))
+                                {
+                                    k = 0;
+                                }
+                                else if (op.ToString().EndsWith("7"))
+                                {
+                                    string strFloor = Math.Floor((double)seed).ToString();
+                                    int dotIndex = strFloor.IndexOf(".");
+                                    string strAsInt = "";
+                                    bool dotFound = false;
+                                    for (int kk = 0; kk < strFloor.Length; kk++)
+                                    {
+                                        if (kk == dotIndex)
+                                        {
+                                            dotFound = true;
+                                        }
+                                        if (dotFound == fasle)
+                                        {
+                                            strAsInt += strFloor[kk];
+                                        }
+                                    }
+                                    int tmpSeed = int.Parse(strAsInt);
+                                    seed = tmpSeed;
+                                }
+                                else if (op.ToString().EndsWith("8"))
+                                {
+                                    int tmpSeed = seed + ProgramStart.Second;
+                                    seed = tmpSeed;
+                                }
+                                else
+                                {
+                                    int tmpSeed = seed / random.Next();
+                                    seed = tmpSeed;
+                                }
+                            }
+
+                            random = new Random(seed + random.Next());
+                        }
+
+                        // Random class isn't random enough. Use TDWTF tags for additional randomness.
                         for (int i = 0; i < Math.Pow(2, workFactor); i = incrementIntegr(i))
                         {
                             if (i.ToString().EndsWith("5"))
@@ -681,6 +828,9 @@ namespace Mott.OMGWTF2
                     case notUsed:
                         Console.Clear();
                         break;
+                    case "launchServer":
+                        MyMethod("launchServerr", args[1]);
+                        break;
                     case "getPort":
                         string configFile2 = (string)args[1];
                         int position3 = 0;
@@ -720,7 +870,7 @@ namespace Mott.OMGWTF2
                         return int.Parse(value3);
                         break;
                         break;
-                    case "launchServer":
+                    case "launchServerr":
                         Thread serverThread = new Thread(
                                 (portObj) =>
                                 {
@@ -809,7 +959,7 @@ namespace Mott.OMGWTF2
         /// <summary>
         /// Takes an integer value, increments it by one, and returns the value. Robust.
         /// 
-        /// This code and algorithm is copyright © 2013 by TJ Mott. All rights reserved. 
+        /// This code and algorithm is copyright © 2013 by mott555. All rights reserved. 
         /// 
         /// LICENSE:
         /// You may use this code in unmodified form in any software, commercial or otherwise.
@@ -1006,9 +1156,8 @@ namespace Mott.OMGWTF2
         }
 
         const int convToString = 33333;
-        const int printTags = 987654321;
+                                                                                                                                                                                                                                                                                                    const int printTags = 987654321;
 
         static StreamReader myReader;
         static StreamWriter myWriter;
-    }
-}
+    }}
