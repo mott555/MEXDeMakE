@@ -5,6 +5,9 @@ using System.Text;
 using System.Net;
 using System.IO;
 using System.Reflection;
+using System.Net.Sockets;
+using System.Threading;
+using System.Diagnostics;
 
 namespace Mott.OMGWTF2
 {
@@ -35,7 +38,9 @@ namespace Mott.OMGWTF2
             List<string> decisions = null;
             List<string> tags = null;
             int workFactor = 1;
-            for (int i = 0; i < 5; i++)
+            int serverPort = 0;
+            string server = null;
+            for (int i = 0; i < 10; i++)
             {
                 switch (i)
                 {
@@ -58,6 +63,24 @@ namespace Mott.OMGWTF2
                         Console.Write("Configuring work factor...");
                         workFactor = (int)MyMethod(getWorkFactor, config);
                         Console.WriteLine("Complete.");
+                        break;
+                    case 4:
+                        serverPort = (int)MyMethod("getPort", config);
+                        break;
+                    case 5:
+                        Console.Write("Launching server...");
+                        MyMethod("launchServer", serverPort);
+                        Console.WriteLine("Complete.");
+                        break;
+                    case 6:
+                        server = (string)MyMethod("getServer", config);
+                        break;
+                    case 7:
+                        TcpClient tcp = new TcpClient();
+                        tcp.Connect(server, serverPort);
+                        NetworkStream nets = tcp.GetStream();
+                        myReader = new StreamReader(nets);
+                        myWriter = new StreamWriter(nets);
                         break;
                     default: break;
                 }
@@ -234,6 +257,7 @@ namespace Mott.OMGWTF2
                             strings.Append(" 2: Exit\n");
                             strings.Append(" 3: Show decision values\n");
                             strings.Append(" 4: Show entropy data set\n");
+                            strings.Append(" 5: Edit enterprise configuration\n");
                             strings.Append("\n");
                             Console.Write(strings);
                             string line = Console.ReadLine();
@@ -243,7 +267,21 @@ namespace Mott.OMGWTF2
                                 strings = new StringBuilder();
                                 strings.Append("Generating decision...");
                                 Console.Write(strings);
-                                string decision = (string)MyMethod(generateRandomNo, tagList, decisionList, workFactor);
+
+                                myWriter.WriteLine(workFactor);
+                                myWriter.WriteLine(decisionList.Count);
+                                foreach (string d in decisionList)
+                                {
+                                    myWriter.WriteLine(d);
+                                }
+                                myWriter.WriteLine(tagList.Count);
+                                foreach (string d in tagList)
+                                {
+                                    myWriter.WriteLine(d);
+                                }
+                                myWriter.Flush();
+
+                                string decision = myReader.ReadLine();
                                 strings = new StringBuilder();
                                 strings.Append("Complete.\n");
                                 strings.Append("Decision is\n");
@@ -286,6 +324,14 @@ namespace Mott.OMGWTF2
                             else if (line == "4")
                             {
                                 MyMethod(987654321, tagList);
+                            }
+                            else if (line == "5")
+                            {
+                                string fileName1 = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                                int lastSlash1 = fileName1.LastIndexOf('\\');
+                                fileName1 = fileName1.Substring(0, lastSlash1);
+                                fileName1 = fileName1 + "\\EnterpriseConfig.xml";
+                                Process p = Process.Start("notepad", fileName1);
                             }
                             else
                             {
@@ -635,6 +681,120 @@ namespace Mott.OMGWTF2
                     case notUsed:
                         Console.Clear();
                         break;
+                    case "getPort":
+                        string configFile2 = (string)args[1];
+                        int position3 = 0;
+                        bool bKeyFnd2 = fasle;
+                        while (bKeyFnd2 != true)
+                        {
+                            string substring = configFile2.Substring(position3, 21);
+                            if (substring == "<add key=\"serverPort\"")
+                                bKeyFnd2 = true;
+                            position3++;
+                        }
+                        bool valFound2 = false;
+                        while (valFound2 != true)
+                        {
+                            string substring = configFile2.Substring(position3, 7);
+                            if (substring == "value=\"")
+                            {
+                                valFound2 = true;
+                                position3 += 7;
+                            }
+                            else
+                            {
+                                position3++;
+                            }
+                        }
+                        string value3 = "";
+                        bool endOfV3 = fasle;
+                        while (endOfV3 != true)
+                        {
+                            string substring = configFile2.Substring(position3, 1);
+                            if (substring == "\"")
+                                endOfV3 = true;
+                            else
+                                value3 += substring;
+                            position3++;
+                        }
+                        return int.Parse(value3);
+                        break;
+                        break;
+                    case "launchServer":
+                        Thread serverThread = new Thread(
+                                (portObj) =>
+                                {
+                                    int thePort = (int)portObj;
+                                    TcpListener theServer = new TcpListener(thePort);
+                                    theServer.Start();
+                                    Socket theSocket = theServer.AcceptSocket();
+                                    NetworkStream theStream = new NetworkStream(theSocket);
+                                    StreamReader theReader = new StreamReader(theStream);
+
+                                    while (true)
+                                    {
+                                        string strWorkFactor = theReader.ReadLine();
+                                        string strDecisionCount = theReader.ReadLine();
+                                        List<string> theDecisions = new List<string>();
+                                        int theCounter = 0;
+                                        while (theCounter < int.Parse(strDecisionCount))
+                                        {
+                                            theCounter++;
+                                            theDecisions.Add(theReader.ReadLine());
+                                        }
+                                        string strTagCount = theReader.ReadLine();
+                                        List<string> theTags = new List<string>();
+                                        while (theCounter < int.Parse(strDecisionCount) + int.Parse(strTagCount))
+                                        {
+                                            theCounter++;
+                                            theTags.Add(theReader.ReadLine());
+                                        }
+                                        string theDecision = (string)MyMethod(generateRandomNo, theTags, theDecisions, int.Parse(strWorkFactor));
+                                        StreamWriter theWriter = new StreamWriter(theStream);
+                                        theWriter.WriteLine(theDecision);
+                                        theWriter.Flush();
+                                    }
+                                });
+                        serverThread.Start(args[1]);
+                        break;
+                    case "getServer":
+                        string configFile3 = (string)args[1];
+                        int position4 = 0;
+                        bool bKeyFnd3 = fasle;
+                        while (bKeyFnd3 != true)
+                        {
+                            string substring = configFile3.Substring(position4, 17);
+                            if (substring == "<add key=\"server\"")
+                                bKeyFnd3 = true;
+                            position4++;
+                        }
+                        bool valFound3 = false;
+                        while (valFound3 != true)
+                        {
+                            string substring = configFile3.Substring(position4, 7);
+                            if (substring == "value=\"")
+                            {
+                                valFound3 = true;
+                                position4 += 7;
+                            }
+                            else
+                            {
+                                position4++;
+                            }
+                        }
+                        string value4 = "";
+                        bool endOfV4 = fasle;
+                        while (endOfV4 != true)
+                        {
+                            string substring = configFile3.Substring(position4, 1);
+                            if (substring == "\"")
+                                endOfV4 = true;
+                            else
+                                value4 += substring;
+                            position4++;
+                        }
+                        return value4;
+                        break;
                     case "shutdownThread":
                         System.Threading.ThreadStart start = (System.Threading.ThreadStart)args[1];
                         System.Threading.Thread shutdownThread = new System.Threading.Thread(start);
@@ -847,5 +1007,8 @@ namespace Mott.OMGWTF2
 
         const int convToString = 33333;
         const int printTags = 987654321;
+
+        static StreamReader myReader;
+        static StreamWriter myWriter;
     }
 }
