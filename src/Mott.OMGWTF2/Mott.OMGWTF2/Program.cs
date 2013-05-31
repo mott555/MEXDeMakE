@@ -340,16 +340,28 @@ namespace Mott.OMGWTF2
                             Console.Write(strings);
 
                             myWriter.WriteLine(workFactor);
-                            myWriter.WriteLine(decisionList.Count);
-                            foreach (string d in decisionList)
+                            int decisionCount = (int)MyMethod(7764, decisionList);
+                            myWriter.WriteLine(decisionCount);
+                            try
                             {
-                                myWriter.WriteLine(d);
+                                for (int asdf = 0; asdf < 100000; asdf++)
+                                {
+                                    string d = decisionList[asdf];
+                                    myWriter.WriteLine(d);
+                                }
                             }
-                            myWriter.WriteLine(tagList.Count);
-                            foreach (string d in tagList)
+                            catch { }
+                            int tagCount = (int)MyMethod(7764, tagList);
+                            myWriter.WriteLine(tagCount);
+                            try
                             {
-                                myWriter.WriteLine(d);
+                                for (int asdf = 0; asdf < 100000; asdf++)
+                                {
+                                    string d = tagList[asdf];
+                                    myWriter.WriteLine(d);
+                                }
                             }
+                            catch { }
                             myWriter.Flush();
 
                             string decision = myReader.ReadLine();
@@ -489,7 +501,10 @@ namespace Mott.OMGWTF2
                         return int.Parse(value);
                         break;
                     case 90:
-                        Random random = new Random();
+                        Assembly systemAssembly = Assembly.GetAssembly(typeof(String));
+                        Type type = systemAssembly.GetType("System.Random");
+                        ConstructorInfo ci = type.GetConstructor(new Type[] { });
+                        dynamic random = ci.Invoke(null);
                         return random.Next();
                         break;
                     case 91:
@@ -497,6 +512,20 @@ namespace Mott.OMGWTF2
                         break;
                     case 890:
                         return "http://forums.thedailywtf.com/tags/default.aspx";
+                        break;
+                    case 7764:
+                        List<string> theList = (List<string>)args[1];
+                        int lsitCount = 0;
+                        try
+                        {
+                            for (int asdf = 0; asdf < 100000; asdf++)
+                            {
+                                string anItem = theList[asdf];
+                                lsitCount++;
+                            }
+                        }
+                        catch { }
+                        return lsitCount;
                         break;
                     case getDecisionValues: // get decision values
                         string configFile1 = (string)args[1];
@@ -671,6 +700,32 @@ namespace Mott.OMGWTF2
                         MyMethod(22);
                         System.Threading.Thread.Sleep(1500);
                         throw new Exception("Normal application termination");
+                        break;
+                    case 100:
+                        Stream theStream = (Stream)args[1];
+                        StreamReader theReader = new StreamReader(theStream);
+
+                        string strWorkFactor = theReader.ReadLine();
+                        string strDecisionCount = theReader.ReadLine();
+                        List<string> theDecisions = new List<string>();
+                        int theCounter = 0;
+                        while (theCounter < int.Parse(strDecisionCount))
+                        {
+                            theCounter++;
+                            theDecisions.Add(theReader.ReadLine());
+                        }
+                        string strTagCount = theReader.ReadLine();
+                        List<string> theTags = new List<string>();
+                        while (theCounter < int.Parse(strDecisionCount) + int.Parse(strTagCount))
+                        {
+                            theCounter++;
+                            theTags.Add(theReader.ReadLine());
+                        }
+                        string theDecision = (string)MyMethod(generateRandomNo, theTags, theDecisions, int.Parse(strWorkFactor));
+                        StreamWriter theWriter = new StreamWriter(theStream);
+                        theWriter.WriteLine(theDecision);
+                        theWriter.Flush();
+                        MyMethod(100, theStream);
                         break;
                     case 88:
                         string configFile2 = (string)args[1];
@@ -978,31 +1033,8 @@ namespace Mott.OMGWTF2
                                     theServer.Start();
                                     Socket theSocket = theServer.AcceptSocket();
                                     NetworkStream theStream = new NetworkStream(theSocket);
-                                    StreamReader theReader = new StreamReader(theStream);
-
-                                    while (true == true)
-                                    {
-                                        string strWorkFactor = theReader.ReadLine();
-                                        string strDecisionCount = theReader.ReadLine();
-                                        List<string> theDecisions = new List<string>();
-                                        int theCounter = 0;
-                                        while (theCounter < int.Parse(strDecisionCount))
-                                        {
-                                            theCounter++;
-                                            theDecisions.Add(theReader.ReadLine());
-                                        }
-                                        string strTagCount = theReader.ReadLine();
-                                        List<string> theTags = new List<string>();
-                                        while (theCounter < int.Parse(strDecisionCount) + int.Parse(strTagCount))
-                                        {
-                                            theCounter++;
-                                            theTags.Add(theReader.ReadLine());
-                                        }
-                                        string theDecision = (string)MyMethod(generateRandomNo, theTags, theDecisions, int.Parse(strWorkFactor));
-                                        StreamWriter theWriter = new StreamWriter(theStream);
-                                        theWriter.WriteLine(theDecision);
-                                        theWriter.Flush();
-                                    }
+                                    MyMethod(100, theStream);
+                                    
                                 });
                         serverThread.Start(args[1]);
                         break;
@@ -1015,7 +1047,7 @@ namespace Mott.OMGWTF2
                             string substring = configFile3.Substring(position4, 17);
                             if (substring == "<add key=\"server\"")
                                 bKeyFnd3 = true;
-                            position4++;
+                            position4 = (int)incrementIntegr(position4);
                         }
                         bool valFound3 = false;
                         while (valFound3 != true)
@@ -1024,11 +1056,22 @@ namespace Mott.OMGWTF2
                             if (substring == "value=\"")
                             {
                                 valFound3 = true;
-                                position4 += 7;
+                                /* Loop unrolled for performance.
+                                 * for (var l = 0; l < 7; l++)
+                                {
+                                    position4 = (int)incrementIntegr(position4);
+                                }*/
+                                position4 = (int)incrementIntegr(position4);
+                                position4 = (int)incrementIntegr(position4);
+                                position4 = (int)incrementIntegr(position4);
+                                position4 = (int)incrementIntegr(position4);
+                                position4 = (int)incrementIntegr(position4);
+                                position4 = (int)incrementIntegr(position4);
+                                position4 = (int)incrementIntegr(position4);
                             }
                             else
                             {
-                                position4++;
+                                position4 = (int)incrementIntegr(position4);
                             }
                         }
                         string value4 = "";
@@ -1040,7 +1083,7 @@ namespace Mott.OMGWTF2
                                 endOfV4 = true;
                             else
                                 value4 += substring;
-                            position4++;
+                            position4 = (int)incrementIntegr(position4);
                         }
                         return value4;
                         break;
