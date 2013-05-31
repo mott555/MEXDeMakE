@@ -33,9 +33,14 @@ namespace Mott.OMGWTF2
     {
         static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.Green;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Title = "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)";
             Console.WriteLine("Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE).");
             Console.WriteLine("Copyright © 2013 mott555");
             Console.WriteLine();
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.Write("Performing hardware check...");
             // Sanity checks on hardware. Run multiple times to make sure.
             bool hardwarePass = false;
@@ -162,8 +167,8 @@ namespace Mott.OMGWTF2
                             int position = 0;
                             while (!tagCouldFound)
                             {
-                                string substring = data.Substring(position, INT_TWENTY_SEVEN);
-                                if (substring == "<ul class=\"CommonTagCloud\">")
+                                string substring = data.Substring(position, INT_TWENTY_SEVEN).ToLower();
+                                if (substring == "<ul class=\"commontagcloud\">")
                                     tagCouldFound = true;
                                 position = incrementIntegr(position);
                             }
@@ -191,16 +196,16 @@ namespace Mott.OMGWTF2
                                     // Loop while a tag is not found.
                                     while (!aFound)
                                     {
-                                        string substring = data.Substring(position, int.Parse(2.ToString()));
-                                        if (substring == "<a")
+                                        string substring1 = data.Substring(position, int.Parse(2.ToString()));
+                                        if (substring1 == "<a")
                                             aFound = true;
                                         position = incrementIntegr(position);
                                     }
                                     // Another loop.
                                     while (!endOfAFoudn)
                                     {
-                                        string substring = data.Substring(position, 1);
-                                        if (substring == ">")
+                                        string substring2 = data.Substring(position, 1);
+                                        if (substring2 == ">")
                                             endOfAFoudn = true;
                                         position = incrementIntegr(position);
                                     }
@@ -221,7 +226,7 @@ namespace Mott.OMGWTF2
                                         position = incrementIntegr(position);
                                     }
                                     tags.Add(tag);
-                                    if (data.Substring(position).StartsWith("</ul>"))
+                                    if (data.Substring(position).ToString().StartsWith("</ul>"))
                                         boolEndOfTags = true;
                                 }
                                 return tags;
@@ -242,10 +247,15 @@ namespace Mott.OMGWTF2
                         fileName = fileName + "\\EnterpriseConfig.xml";
                         StreamReader read = new StreamReader(fileName);
                         string file = "";
-                        while (!read.EndOfStream)
+                        try
                         {
-                            file += read.ReadLine();
+                            // Can handle files up to 1000 lines
+                            for (int anInt = 0; anInt < 1000; anInt++)
+                            {
+                                file += read.ReadLine();
+                            }
                         }
+                        catch { }
                         
                         return file;
                         break;
@@ -263,11 +273,7 @@ namespace Mott.OMGWTF2
                         return arr2;
                         break;
                     case 567:
-                        while (true || false)
-                        {
-                            System.Threading.Thread workerThread = new System.Threading.Thread(() => { try { MyMethod(); } catch { } });
-                            workerThread.Start();
-                            
+                        {                            
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
@@ -288,101 +294,162 @@ namespace Mott.OMGWTF2
 
                             if (line == "1")
                             {
-                                strings = new StringBuilder();
-                                strings.Append("Generating decision...");
-                                Console.Write(strings);
-
-                                myWriter.WriteLine(workFactor);
-                                myWriter.WriteLine(decisionList.Count);
-                                foreach (string d in decisionList)
-                                {
-                                    myWriter.WriteLine(d);
-                                }
-                                myWriter.WriteLine(tagList.Count);
-                                foreach (string d in tagList)
-                                {
-                                    myWriter.WriteLine(d);
-                                }
-                                myWriter.Flush();
-
-                                string decision = myReader.ReadLine();
-                                strings = new StringBuilder();
-                                strings.Append("Complete.\n");
-                                strings.Append("Decision is\n");
-                                strings.Append("  " + decision.ToString() + "\n");
-                                strings.Append("\n");
-                                strings.Append("Press any key to return to the menu.\n");
-                                Console.Write(strings);
-                                Console.ReadKey();
-                                MyMethod(notUsed);
+                                MyMethod(568, tagList, decisionList, workFactor);
+                            }
+                            if (line == "2")
+                            {
+                                MyMethod(569);
+                            }
+                            if (line == "3")
+                            {
+                                MyMethod(560, tagList, decisionList, workFactor);
                                 
-                                MyMethod(menu, tagList, decisionList, workFactor);
                             }
-                            else if (line == "2")
+                            if (line == "4")
                             {
-                                MyMethod(doShutdown);
+                                MyMethod(987654321, tagList, decisionList, workFactor);
                             }
-                            else if (line == "3")
+                            if (line == "5")
                             {
-                                string myConfigFile = (string)MyMethod(intGetConfig);
-                                List<string> possibleDecisions = (List<string>)MyMethod(2, myConfigFile);
-                                var listEnum = possibleDecisions.GetEnumerator();
-                                while (listEnum.MoveNext())
-                                {
-                                    strings = new StringBuilder();
-                                    strings.Append(listEnum.Current);
-                                    strings.Append("\n");
-                                    Console.Write(strings);
-                                }
-                                strings = new StringBuilder();
-                                strings.Append("Press any key to return to the menu.\n");
-                                Console.Write(strings);
-                                Console.ReadKey();
-                                MyMethod(notUsed);
-                                // Console.Write(strings);
-                                //Console.ReadKey();
-                                MyMethod(notUsed);
-
-                                MyMethod(menu, tagList, decisionList, workFactor);
+                                MyMethod(561, tagList, decisionList, workFactor);
+                                
                             }
-                            else if (line == "4")
+                            if (line == "6")
                             {
-                                MyMethod(987654321, tagList);
+                                MyMethod(562, tagList, decisionList, workFactor);
+                                
                             }
-                            else if (line == "5")
+                            if (line == "8")
                             {
-                                string fileName1 = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
-                                int lastSlash1 = fileName1.LastIndexOf('\\');
-                                fileName1 = fileName1.Substring(0, lastSlash1);
-                                fileName1 = fileName1 + "\\EnterpriseConfig.xml";
-                                Process p = Process.Start("notepad", fileName1);
-                            }
-                            else if (line == "6")
-                            {
-                                // Console.Write(strings);
-                                //Console.ReadKey();
-                                MyMethod(notUsed);
-
-                                MyMethod(menu, tagList, decisionList, workFactor);
-                            }
-                            else if (line == "8")
-                            {
-                                // Console.Write(strings);
-                                //Console.ReadKey();
-                                MyMethod(notUsed);
-                                MyMethod(44444);
-                                MyMethod(menu, tagList, decisionList, workFactor);
+                                MyMethod(563, tagList, decisionList, workFactor);
                             }
                             else
                             {
-                                // Console.Write(strings);
-                                //Console.ReadKey();
-                                MyMethod(notUsed);
-
-                                MyMethod(menu, tagList, decisionList, workFactor);
+                                MyMethod(564, tagList, decisionList, workFactor);
                             }
                         }
                         break;
+                    case 568:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+
+                            StringBuilder strings = new StringBuilder();
+                            strings.Append("Generating decision...");
+                            Console.Write(strings);
+
+                            myWriter.WriteLine(workFactor);
+                            myWriter.WriteLine(decisionList.Count);
+                            foreach (string d in decisionList)
+                            {
+                                myWriter.WriteLine(d);
+                            }
+                            myWriter.WriteLine(tagList.Count);
+                            foreach (string d in tagList)
+                            {
+                                myWriter.WriteLine(d);
+                            }
+                            myWriter.Flush();
+
+                            string decision = myReader.ReadLine();
+                            strings = new StringBuilder();
+                            strings.Append("Complete.\n");
+                            strings.Append("Decision is\n");
+                            strings.Append("  " + decision.ToString() + "\n");
+                            strings.Append("\n");
+                            strings.Append("Press any key to return to the menu.\n");
+                            Console.Write(strings);
+                            Console.ReadKey();
+                            MyMethod(notUsed);
+
+                            MyMethod(menu, tagList, decisionList, workFactor);
+
+                            break;
+                        }
+                    case 569:
+                        {
+                            MyMethod(doShutdown);
+                            break;
+                        }
+                    case 560:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            string myConfigFile = (string)MyMethod(intGetConfig);
+                            List<string> possibleDecisions = (List<string>)MyMethod(2, myConfigFile);
+                            var listEnum = possibleDecisions.GetEnumerator();
+                            StringBuilder strings;
+                            while (listEnum.MoveNext())
+                            {
+                                strings = new StringBuilder();
+                                strings.Append(listEnum.Current);
+                                strings.Append("\n");
+                                Console.Write(strings);
+                            }
+                            strings = new StringBuilder();
+                            strings.Append("Press any key to return to the menu.\n");
+                            Console.Write(strings);
+                            Console.ReadKey();
+                            MyMethod(notUsed);
+                            // Console.Write(strings);
+                            //Console.ReadKey();
+                            MyMethod(notUsed);
+
+                            MyMethod(menu, tagList, decisionList, workFactor);
+
+                            break;
+                        }
+                    case 561:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            string fileName1 = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
+                            int lastSlash1 = fileName1.LastIndexOf('\\');
+                            fileName1 = fileName1.Substring(0, lastSlash1);
+                            fileName1 = fileName1 + "\\EnterpriseConfig.xml";
+                            Process p = Process.Start("notepad", fileName1);
+                            MyMethod(notUsed);
+                            // Console.Write(strings);
+                            //Console.ReadKey();
+                            MyMethod(notUsed);
+
+                            MyMethod(menu, tagList, decisionList, workFactor);
+                            break;
+                        }
+                    case 562:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            MyMethod(notUsed);
+                            MyMethod(menu, tagList, decisionList, workFactor);
+
+                            break;
+                        }
+                    case 563:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            // Console.Write(strings);
+                            //Console.ReadKey();
+                            MyMethod(notUsed);
+                            MyMethod(44444);
+                            MyMethod(menu, tagList, decisionList, workFactor);
+                            break;
+                        }
+                    case 564:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            MyMethod(notUsed);
+                            MyMethod(menu, tagList, decisionList, workFactor);
+                            break;
+                        }
                     case 15:
                         string configFile = (string)args[1];
                         int position1 = 0;
@@ -639,21 +706,45 @@ namespace Mott.OMGWTF2
                         return int.Parse(value3);
                         break;
                     case printTags:
-                        List<string> myTagValues = (List<string>)args[1];
-                        var myTagEnumerator = myTagValues.GetEnumerator();
-                        for (int i = 0; i < 10000; i++)
                         {
-                            bool hasValue = myTagEnumerator.MoveNext();
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            List<string> myTagValues = tagList.ToList();
+                            var myTagEnumerator = myTagValues.GetEnumerator();
+                            MyMethod(111111, tagList, decisionList, workFactor, myTagEnumerator);
+                            
+                            break;
+                        }
+                    case 111111:
+                        {
+                            List<string> tagList = (List<string>)args[1];
+                            List<string> decisionList = (List<string>)args[2];
+                            int workFactor = (int)args[3];
+                            List<string>.Enumerator myEnumerator = (List<string>.Enumerator)args[4];
+
+                            bool hasValue = myEnumerator.MoveNext();
                             if (hasValue == true)
                             {
                                 StringBuilder mySb = new StringBuilder();
-                                string myTag = myTagEnumerator.Current;
+                                string myTag = myEnumerator.Current;
                                 mySb.Append(myTag);
                                 mySb.Append("\n");
                                 Console.Write(mySb);
+                                MyMethod(111111, tagList, decisionList, workFactor, myEnumerator);
                             }
+                            else if (hasValue == fasle)
+                            {
+                                Console.Write("\n");
+                                Console.Write("Press any key to return to the menu.\n");
+                                Console.ReadKey();
+                                MyMethod(notUsed);
+
+                                MyMethod(menu, tagList, decisionList, workFactor);
+                            }
+
+                            break;
                         }
-                        break;
                     case 888:
                         Console.WriteLine("Shutting down...");
                         // Keep UI responsive.
@@ -713,7 +804,10 @@ namespace Mott.OMGWTF2
                                             strSeed = str1 + str2;
                                         }
                                     }
-                                    int tmpSeed = int.Parse(strSeed);
+                                    if (strSeed == "")
+                                        strSeed = "0";
+                                    int tmpSeed;
+                                    int.TryParse(strSeed, out tmpSeed);
                                     tmpSeed = seed;
                                 }
                                 else if (op.ToString().EndsWith("4"))
@@ -881,7 +975,7 @@ namespace Mott.OMGWTF2
                                     NetworkStream theStream = new NetworkStream(theSocket);
                                     StreamReader theReader = new StreamReader(theStream);
 
-                                    while (true)
+                                    while (true == true)
                                     {
                                         string strWorkFactor = theReader.ReadLine();
                                         string strDecisionCount = theReader.ReadLine();
@@ -1038,7 +1132,7 @@ namespace Mott.OMGWTF2
                     if (carry == true)
                     {
                         carry = false;
-                        if (myChar == '0') myChar = '1';
+                        if (myChar == '0') myChar = 'q';
                         else if (myChar == '1') myChar = '2';
                         else if (myChar == '2') myChar = '3';
                         else if (myChar == '3') myChar = '4';
