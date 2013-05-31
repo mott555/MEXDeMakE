@@ -579,6 +579,11 @@ namespace Mott.OMGWTF2
                                 throw new Exception("Computer time problems.");
                                 return false;
                             }
+                            if (DateTime.Now < ProgramStart)
+                            {
+                                throw new Exception("Computer time problems.");
+                                return false;
+                            }
                             // Make sure hardware ALU works.
                             if (1 + 1 != 2)
                             {
