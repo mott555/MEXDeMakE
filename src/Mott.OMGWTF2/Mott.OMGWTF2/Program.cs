@@ -35,13 +35,13 @@ namespace Mott.OMGWTF2
         {
             Console.BackgroundColor = ConsoleColor.Green;
             Console.ForegroundColor = ConsoleColor.Black;
-            Console.Title = "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)";
-            Console.WriteLine("Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE).");
-            Console.WriteLine("Copyright © 2013 mott555");
+            Console.Title = (string)MyMethod("i18n", "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)", "english");
+            Console.WriteLine((string)MyMethod("i18n", "Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE).", "english"));
+            Console.WriteLine((string)MyMethod("i18n", "Copyright © 2013 mott555", "english"));
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("Performing hardware check...");
+            Console.Write((string)MyMethod("i18n", "Performing hardware check...", "english"));
             // Sanity checks on hardware. Run multiple times to make sure.
             bool hardwarePass = false;
             for (int i = 0; i < 10; i++)
@@ -49,12 +49,12 @@ namespace Mott.OMGWTF2
                 hardwarePass = (bool)MyMethod(HARDWARE_TEST, 1);
                 if (hardwarePass == false)
                 {
-                    Console.WriteLine("Hardware failure.");
+                    Console.WriteLine((string)MyMethod("i18n", "Hardware failure.", "english"));
                     return;
                 }
             }
             if (hardwarePass)
-                Console.WriteLine("Pass.");
+                Console.WriteLine((string)MyMethod("i18n", "Pass.", "english"));
 
             // Get config.
             string config = null;
@@ -68,32 +68,32 @@ namespace Mott.OMGWTF2
                 switch (i)
                 {
                     case 0:
-                        Console.Write("Loading EnterpriseConfig.xml...");
+                        Console.Write((string)MyMethod("i18n", "Loading EnterpriseConfig.xml...", "english"));
                         config = (string)MyMethod(intGetConfig);
-                        Console.WriteLine("Complete.");
+                        Console.WriteLine((string)MyMethod("i18n", "Complete.", "english"));
                         break;
                     case 1:
-                        Console.Write("Loading decision values...");
+                        Console.Write((string)MyMethod("i18n", "Loading decision values...", "english"));
                         decisions = (List<string>)MyMethod(getDecisionValues, config);
-                        Console.WriteLine("Complete.");
+                        Console.WriteLine((string)MyMethod("i18n", "Complete.", "english"));
                         break;
                     case 2:
-                        Console.Write("Loading entropy data set...");
+                        Console.Write((string)MyMethod("i18n", "Loading entropy data set...", "english"));
                         tags = (List<string>)MyMethod(getTags);
-                        Console.WriteLine("Complete.");
+                        Console.WriteLine((string)MyMethod("i18n", "Complete.", "english"));
                         break;
                     case 3:
-                        Console.Write("Configuring work factor...");
+                        Console.Write((string)MyMethod("i18n", "Configuring work factor...", "english"));
                         workFactor = (int)MyMethod(getWorkFactor, config);
-                        Console.WriteLine("Complete.");
+                        Console.WriteLine((string)MyMethod("i18n", "Complete.", "english"));
                         break;
                     case 4:
                         serverPort = (int)MyMethod("getPort", config);
                         break;
                     case 5:
-                        Console.Write("Launching server...");
+                        Console.Write((string)MyMethod("i18n", "Launching server...", "english"));
                         MyMethod("launchServer", serverPort);
-                        Console.WriteLine("Complete.");
+                        Console.WriteLine((string)MyMethod("i18n", "Complete.", "english"));
                         break;
                     case 6:
                         server = (string)MyMethod("getServer", config);
@@ -109,7 +109,7 @@ namespace Mott.OMGWTF2
                 }
             }
 
-            Console.WriteLine("Initializing menu...Complete.");
+            Console.WriteLine((string)MyMethod("i18n", "Initializing menu...Complete.", "english"));
 
             Console.WriteLine();
             MyMethod(menu, tags, decisions, workFactor);
@@ -279,16 +279,16 @@ namespace Mott.OMGWTF2
                             int workFactor = (int)args[3];
 
                             StringBuilder strings = new StringBuilder();
-                            strings.Append("Please select from these menu items.\n");
-                            strings.Append(" 1: Generate Decision\n");
-                            strings.Append(" 2: Exit\n");
-                            strings.Append(" 3: Show decision values\n");
-                            strings.Append(" 4: Show entropy data set\n");
-                            strings.Append(" 5: Edit enterprise configuration\n");
-                            strings.Append(" 6: Show menu\n");
-                            strings.Append(" 7: Show time\n");
-                            strings.Append(" 8: About\n");
-                            strings.Append("\n");
+                            strings.Append((string)MyMethod("i18n", "Please select from these menu items.\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 1: Generate Decision\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 2: Exit\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 3: Show decision values\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 4: Show entropy data set\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 5: Edit enterprise configuration\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 6: Show menu\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 7: Show time\n", "english"));
+                            strings.Append((string)MyMethod("i18n", " 8: About\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "\n", "english"));
                             Console.Write(strings);
                             string line = Console.ReadLine();
 
@@ -336,7 +336,7 @@ namespace Mott.OMGWTF2
                             int workFactor = (int)args[3];
 
                             StringBuilder strings = new StringBuilder();
-                            strings.Append("Generating decision...");
+                            strings.Append((string)MyMethod("i18n", "Generating decision...", "english"));
                             Console.Write(strings);
 
                             myWriter.WriteLine(workFactor);
@@ -366,11 +366,11 @@ namespace Mott.OMGWTF2
 
                             string decision = myReader.ReadLine();
                             strings = new StringBuilder();
-                            strings.Append("Complete.\n");
-                            strings.Append("Decision is\n");
+                            strings.Append((string)MyMethod("i18n", "Complete.\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "Decision is\n", "english"));
                             strings.Append("  " + decision.ToString() + "\n");
-                            strings.Append("\n");
-                            strings.Append("Press any key to return to the menu.\n");
+                            strings.Append((string)MyMethod("i18n", "\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "Press any key to return to the menu.\n", "english"));
                             Console.Write(strings);
                             Console.ReadKey();
                             MyMethod(notUsed);
@@ -397,11 +397,11 @@ namespace Mott.OMGWTF2
                             {
                                 strings = new StringBuilder();
                                 strings.Append(listEnum.Current);
-                                strings.Append("\n");
+                                strings.Append((string)MyMethod("i18n", "\n", "english"));
                                 Console.Write(strings);
                             }
                             strings = new StringBuilder();
-                            strings.Append("Press any key to return to the menu.\n");
+                            strings.Append((string)MyMethod("i18n", "Press any key to return to the menu.\n", "english"));
                             Console.Write(strings);
                             Console.ReadKey();
                             MyMethod(notUsed);
@@ -581,7 +581,7 @@ namespace Mott.OMGWTF2
                         return valuesAsStrings;
                         break;
                     case 42:
-                        Console.WriteLine("You just found the answer!");
+                        Console.WriteLine((string)MyMethod("i18n", "You just found the answer!", "english"));
                         break;
                     case 33333:
                         object[] myArr1 = (object[])args[1];
@@ -600,28 +600,28 @@ namespace Mott.OMGWTF2
                         {
                             if (System.Environment.ProcessorCount < 1)
                             {
-                                throw new Exception("Invalid processor count, please run this on a computer that has at least one processor.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid processor count, please run this on a computer that has at least one processor.", "english"));
                                 return false;
                             }
                             if (System.Environment.TickCount < 0)
                             {
-                                throw new Exception("Computer time problems.");
+                                throw new Exception((string)MyMethod("i18n", "Computer time problems.", "english"));
                                 return false;
                             }
                             if (DateTime.Now < ProgramStart)
                             {
-                                throw new Exception("Computer time problems.");
+                                throw new Exception((string)MyMethod("i18n", "Computer time problems.", "english"));
                                 return false;
                             }
                             // Make sure hardware ALU works.
                             if (1 + 1 != 2)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
                             if (2 + 2 != 4)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
 
@@ -635,47 +635,47 @@ namespace Mott.OMGWTF2
                              * */
                             if (1 / 1 != 1)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
                             if (2 / 1 != 2)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
                             if (2 * 2 != 4)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
                             if (108 - 10 != 98)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
                             if (32 - 16 != 16)
                             {
-                                throw new Exception("Invalid math result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid math result.", "english"));
                                 return false;
                             }
                             if (true != true)
                             {
-                                throw new Exception("Invalid boolean result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid boolean result.", "english"));
                                 return false;
                             }
                             if (false != false)
                             {
-                                throw new Exception("Invalid boolean result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid boolean result.", "english"));
                                 return false;
                             }
                             if (true == false)
                             {
-                                throw new Exception("Invalid boolean result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid boolean result.", "english"));
                                 return false;
                             }
                             if (fasle == true)
                             {
-                                throw new Exception("Invalid boolean result.");
+                                throw new Exception((string)MyMethod("i18n", "Invalid boolean result.", "english"));
                                 return false;
                             }
 
@@ -684,14 +684,14 @@ namespace Mott.OMGWTF2
                         break;
                     case 44444:
                         StringBuilder myString1s = new StringBuilder();
-                        myString1s.AppendLine("About:");
-                        myString1s.AppendLine("Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)");
-                        myString1s.AppendLine("Copyright © 2013 mott555. All rights reserved.");
-                        myString1s.AppendLine("Version 2.1.2");
-                        myString1s.AppendLine("");
-                        myString1s.AppendLine("MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner.");
-                        myString1s.AppendLine("");
-                        myString1s.AppendLine("Press enter to return to main menu.");
+                        myString1s.AppendLine((string)MyMethod("i18n", "About:", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Copyright © 2013 mott555. All rights reserved.", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Version 2.1.2", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner.", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "", "english"));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Press enter to return to main menu.", "english"));
                         Console.WriteLine(myString1s);
                         Console.ReadLine();
                         break;
@@ -699,7 +699,7 @@ namespace Mott.OMGWTF2
                         // Give garbate collector chance to run.
                         MyMethod(22);
                         System.Threading.Thread.Sleep(1500);
-                        throw new Exception("Normal application termination");
+                        throw new Exception((string)MyMethod("i18n", "Normal application termination", "english"));
                         break;
                     case 100:
                         Stream theStream = (Stream)args[1];
@@ -795,8 +795,8 @@ namespace Mott.OMGWTF2
                             }
                             else if (hasValue == fasle)
                             {
-                                Console.Write("\n");
-                                Console.Write("Press any key to return to the menu.\n");
+                                Console.Write((string)MyMethod("i18n", "\n", "english"));
+                                Console.Write((string)MyMethod("i18n", "Press any key to return to the menu.\n", "english"));
                                 Console.ReadKey();
                                 MyMethod(notUsed);
 
@@ -806,7 +806,7 @@ namespace Mott.OMGWTF2
                             break;
                         }
                     case 888:
-                        Console.WriteLine("Shutting down...");
+                        Console.WriteLine((string)MyMethod("i18n", "Shutting down...", "english"));
                         // Keep UI responsive.
                         System.Threading.ThreadStart ts = (System.Threading.ThreadStart)MyMethod(getShutdownThreadStart);
                         System.Threading.Thread shutdownThread = (System.Threading.Thread)MyMethod(getShutdownThread, ts);
@@ -1023,6 +1023,352 @@ namespace Mott.OMGWTF2
                         }
                         return int.Parse(value3);
                         break;
+                        break;
+                    case "i18n":
+                        string text = (string)args[1];
+                        string lang = (string)args[2];
+                        if (text == "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)" && lang == "english")
+                        {
+                            return "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)";
+                        }
+                        else if (text == "Hardware failure." && lang == "english")
+                        {
+                            return "Hardware failure.";
+                        }
+                        else if (text == "Performing hardware check..." && lang == "english")
+                        {
+                            return "Performing hardware check...";
+                        }
+                        else if (text == "Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)." && lang == "english")
+                        {
+                            return "Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE).";
+                        }
+                        else if (text == "Copyright © 2013 mott555" && lang == "english")
+                        {
+                            return "Copyright © 2013 mott555";
+                        }
+                        else if (text == "Loading EnterpriseConfig.xml..." && lang == "english")
+                        {
+                            return "Loading EnterpriseConfig.xml...";
+                        }
+                        else if (text == "Complete." && lang == "english")
+                        {
+                            return "Complete.";
+                        }
+                        else if (text == "Pass." && lang == "english")
+                        {
+                            return "Pass.";
+                        }
+                        else if (text == "Loading decision values..." && lang == "english")
+                        {
+                            return "Loading decision values...";
+                        }
+                        else if (text == "Loading entropy data set..." && lang == "english")
+                        {
+                            return "Loading entropy data set...";
+                        }
+                        else if (text == "Configuring work factor..." && lang == "english")
+                        {
+                            return "Configuring work factor...";
+                        }
+                        else if (text == "Launching server..." && lang == "english")
+                        {
+                            return "Launching server...";
+                        }
+                        else if (text == "Initializing menu...Complete." && lang == "english")
+                        {
+                            return "Initializing menu...Complete.";
+                        }
+                        else if (text == "Please select from these menu items.\n" && lang == "english")
+                        {
+                            return "Please select from these menu items.\n";
+                        }
+                        else if (text == " 1: Generate Decision\n" && lang == "english")
+                        {
+                            return " 1: Generate Decision\n";
+                        }
+                        else if (text == " 2: Exit\n" && lang == "english")
+                        {
+                            return " 2: Exit\n";
+                        }
+                        else if (text == " 3: Show decision values\n" && lang == "english")
+                        {
+                            return " 3: Show decision values\n";
+                        }
+                        else if (text == " 4: Show entropy data set\n" && lang == "english")
+                        {
+                            return " 4: Show entropy data set\n";
+                        }
+                        else if (text == " 5: Edit enterprise configuration\n" && lang == "english")
+                        {
+                            return " 5: Edit enterprise configuration\n";
+                        }
+                        else if (text == " 6: Show menu\n" && lang == "english")
+                        {
+                            return " 6: Show menu\n";
+                        }
+                        else if (text == " 7: Show time\n" && lang == "english")
+                        {
+                            return " 7: Show time\n";
+                        }
+                        else if (text == " 8: About\n" && lang == "english")
+                        {
+                            return " 8: About\n";
+                        }
+                        else if (text == "\n" && lang == "english")
+                        {
+                            return "\n";
+                        }
+                        else if (text == "Generating decision..." && lang == "english")
+                        {
+                            return "Generating decision...";
+                        }
+                        else if (text == "Complete.\n" && lang == "english")
+                        {
+                            return "Complete.\n";
+                        }
+                        else if (text == "Decision is\n" && lang == "english")
+                        {
+                            return "Decision is\n";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "english")
+                        {
+                            return "Press any key to return to the menu.\n";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "english")
+                        {
+                            return "Press any key to return to the menu.\n";
+                        }
+                        else if (text == "Invalid processor count, please run this on a computer that has at least one processor." && lang == "english")
+                        {
+                            return "Invalid processor count, please run this on a computer that has at least one processor.";
+                        }
+                        else if (text == "Computer time problems." && lang == "english")
+                        {
+                            return "Computer time problems.";
+                        }
+                        else if (text == "Invalid math result." && lang == "english")
+                        {
+                            return "Invalid math result.";
+                        }
+
+                        else if (text == "Invalid boolean result." && lang == "english")
+                        {
+                            return "Invalid boolean result.";
+                        }
+                        else if (text == "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)" && lang == "english")
+                        {
+                            return "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)";
+                        }
+                        else if (text == "Copyright © 2013 mott555. All rights reserved." && lang == "english")
+                        {
+                            return "Copyright © 2013 mott555. All rights reserved.";
+                        }
+                        else if (text == "Version 2.1.2" && lang == "english")
+                        {
+                            return "Version 2.1.2";
+                        }
+                        else if (text == "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner." && lang == "english")
+                        {
+                            return "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner.";
+                        }
+                        else if (text == "Press enter to return to main menu." && lang == "english")
+                        {
+                            return "Press enter to return to main menu.";
+                        }
+                        else if (text == "About:" && lang == "english")
+                        {
+                            return "About:";
+                        }
+                        else if (text == "Normal application termination" && lang == "english")
+                        {
+                            return "Normal application termination";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "english")
+                        {
+                            return "Press any key to return to the menu.\n";
+                        }
+                        else if (text == "Shutting down..." && lang == "english")
+                        {
+                            return "Shutting down...";
+                        }
+                        else if (text == "" && lang == "english")
+                        {
+                            return "";
+                        }
+                        else if (text == "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)" && lang == "spanish")
+                        {
+                            return "Empresa XML Engine toma de decisiones de Mott (MEXDeMakE)";
+                        }
+                        else if (text == "Hardware failure." && lang == "spanish")
+                        {
+                            return "Error de hardware.";
+                        }
+                        else if (text == "Performing hardware check..." && lang == "spanish")
+                        {
+                            return "Realización de verificación de hardware ...";
+                        }
+                        else if (text == "Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)." && lang == "spanish")
+                        {
+                            return "Bienvenido a Enterprise XML Engine toma de decisiones de Mott (MEXDeMakE).";
+                        }
+                        else if (text == "Copyright © 2013 mott555" && lang == "spanish")
+                        {
+                            return "Copyright © 2013 mott555";
+                        }
+                        else if (text == "Loading EnterpriseConfig.xml..." && lang == "spanish")
+                        {
+                            return "Cargando EnterpriseConfig.xml ...";
+                        }
+                        else if (text == "Complete." && lang == "spanish")
+                        {
+                            return "Completar.";
+                        }
+                        else if (text == "Pass." && lang == "spanish")
+                        {
+                            return "Pass.";
+                        }
+                        else if (text == "Loading decision values..." && lang == "spanish")
+                        {
+                            return "Carga de valores de decisión ...";
+                        }
+                        else if (text == "Loading entropy data set..." && lang == "spanish")
+                        {
+                            return "Cargando conjunto de datos de entropía ...";
+                        }
+                        else if (text == "Configuring work factor..." && lang == "spanish")
+                        {
+                            return "Configuración de factor de trabajo ...";
+                        }
+                        else if (text == "Launching server..." && lang == "spanish")
+                        {
+                            return "El lanzamiento del servidor ...";
+                        }
+                        else if (text == "Initializing menu...Complete." && lang == "spanish")
+                        {
+                            return "Menú Inicializando ... Complete.";
+                        }
+                        else if (text == "Please select from these menu items.\n" && lang == "spanish")
+                        {
+                            return "Por favor seleccione una de estas opciones de menú.\n";
+                        }
+                        else if (text == " 1: Generate Decision\n" && lang == "spanish")
+                        {
+                            return " 1: Generar Decisión\n";
+                        }
+                        else if (text == " 2: Exit\n" && lang == "spanish")
+                        {
+                            return " 2: Salida\n";
+                        }
+                        else if (text == " 3: Show decision values\n" && lang == "spanish")
+                        {
+                            return " 3: Mostrar valores de decisión\n";
+                        }
+                        else if (text == " 4: Show entropy data set\n" && lang == "spanish")
+                        {
+                            return " 4: Mostrar conjunto de datos de la entropía\n";
+                        }
+                        else if (text == " 5: Edit enterprise configuration\n" && lang == "spanish")
+                        {
+                            return " 5: Editar configuración de la empresa\n";
+                        }
+                        else if (text == " 6: Show menu\n" && lang == "spanish")
+                        {
+                            return " 6: Mostrar el menú\n";
+                        }
+                        else if (text == " 7: Show time\n" && lang == "spanish")
+                        {
+                            return " 7: show de hora\n";
+                        }
+                        else if (text == " 8: About\n" && lang == "spanish")
+                        {
+                            return " 8: acerca de\n";
+                        }
+                        else if (text == "\n" && lang == "spanish")
+                        {
+                            return "\n";
+                        }
+                        else if (text == "Generating decision..." && lang == "spanish")
+                        {
+                            return "Generación de decisión...";
+                        }
+                        else if (text == "Complete.\n" && lang == "spanish")
+                        {
+                            return "completar.\n";
+                        }
+                        else if (text == "Decision is\n" && lang == "spanish")
+                        {
+                            return "Decisión\n";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "spanish")
+                        {
+                            return "Pulse cualquier tecla para volver al menú.\n";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "spanish")
+                        {
+                            return "Pulse cualquier tecla para volver al menú.\n";
+                        }
+                        else if (text == "Invalid processor count, please run this on a computer that has at least one processor." && lang == "spanish")
+                        {
+                            return "No válido número de procesadores, por favor ejecutar esto en un equipo que tiene al menos un procesador.";
+                        }
+                        else if (text == "Computer time problems." && lang == "spanish")
+                        {
+                            return "Problemas de tiempo de computadora.";
+                        }
+                        else if (text == "Invalid math result." && lang == "spanish")
+                        {
+                            return "Resultado matemático válido.";
+                        }
+
+                        else if (text == "Invalid boolean result." && lang == "spanish")
+                        {
+                            return "Invalid resultado booleano.";
+                        }
+                        else if (text == "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)" && lang == "spanish")
+                        {
+                            return "Empresa XML Engine toma de decisiones de Mott (MEXDeMakE)";
+                        }
+                        else if (text == "Copyright © 2013 mott555. All rights reserved." && lang == "spanish")
+                        {
+                            return "Copyright © 2013 mott555. Todos los derechos reservados.";
+                        }
+                        else if (text == "Version 2.1.2" && lang == "spanish")
+                        {
+                            return "Versión 2.1.2";
+                        }
+                        else if (text == "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner." && lang == "spanish")
+                        {
+                            return "MEXDeMakE es un motor de toma de decisiones lista para la empresa basada en protocolos XML y de red estándar de la industria. Apenas modifique EnterpriseConfig.xml para satisfacer sus necesidades de negocio y MEXDeMakE analizará cuidadosamente sus necesidades y generar consejos para ayudarle a tomar sus decisiones de negocios mejor y de manera oportuna.";
+                        }
+                        else if (text == "Press enter to return to main menu." && lang == "spanish")
+                        {
+                            return "Pulse Intro para volver al menú principal.";
+                        }
+                        else if (text == "About:" && lang == "spanish")
+                        {
+                            return "acerca de:";
+                        }
+                        else if (text == "Normal application termination" && lang == "spanish")
+                        {
+                            return "Cierre de la aplicación normal";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "spanish")
+                        {
+                            return "Pulse cualquier tecla para volver al menú.\n";
+                        }
+                        else if (text == "Shutting down..." && lang == "spanish")
+                        {
+                            return "Apagado...";
+                        }
+                        else if (text == "" && lang == "spanish")
+                        {
+                            return "";
+                        }
+                        else
+                        {
+                            return "";
+                        }
                         break;
                     case "launchServerr":
                         Thread serverThread = new Thread(
