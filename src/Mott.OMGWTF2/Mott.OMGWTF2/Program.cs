@@ -1365,6 +1365,175 @@ namespace Mott.OMGWTF2
                         {
                             return "";
                         }
+                        else if (text == "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)" && lang == "german")
+                        {
+                            return "XML Engine Company Mott Entscheidungen (MEXDeMakE)";
+                        }
+                        else if (text == "Hardware failure." && lang == "german")
+                        {
+                            return "Hardwarefehler.";
+                        }
+                        else if (text == "Performing hardware check..." && lang == "german")
+                        {
+                            return "Darstellende Hardware-Verifikation...";
+                        }
+                        else if (text == "Welcome to Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)." && lang == "german")
+                        {
+                            return "Willkommen bei der Enterprise XML-Engine Mott Entscheidungen (MEXDeMakE).";
+                        }
+                        else if (text == "Copyright © 2013 mott555" && lang == "german")
+                        {
+                            return "Copyright © 2013 mott555";
+                        }
+                        else if (text == "Loading EnterpriseConfig.xml..." && lang == "german")
+                        {
+                            return "EnterpriseConfig.xml geladen ...";
+                        }
+                        else if (text == "Complete." && lang == "german")
+                        {
+                            return "Schließe.";
+                        }
+                        else if (text == "Pass." && lang == "german")
+                        {
+                            return "Pass.";
+                        }
+                        else if (text == "Loading decision values..." && lang == "german")
+                        {
+                            return "Laden Entscheidung Werte ...";
+                        }
+                        else if (text == "Loading entropy data set..." && lang == "german")
+                        {
+                            return "Lädt Entropie Datensatz ...";
+                        }
+                        else if (text == "Configuring work factor..." && lang == "german")
+                        {
+                            return "Einschaltdauer Einstellungen ...";
+                        }
+                        else if (text == "Launching server..." && lang == "german")
+                        {
+                            return "Wenn der Server ...";
+                        }
+                        else if (text == "Initializing menu...Complete." && lang == "german")
+                        {
+                            return "Initialisierung Menü ... Schließe.";
+                        }
+                        else if (text == "Please select from these menu items.\n" && lang == "german")
+                        {
+                            return "Bitte wählen Sie eine der folgenden Optionen im Menü.\n";
+                        }
+                        else if (text == " 1: Generate Decision\n" && lang == "german")
+                        {
+                            return " 1: Generieren Entscheidung\n";
+                        }
+                        else if (text == " 2: Exit\n" && lang == "german")
+                        {
+                            return " 2: Verlassen\n";
+                        }
+                        else if (text == " 3: Show decision values\n" && lang == "german")
+                        {
+                            return " 3: Anzeigen von Werten Entscheidung\n";
+                        }
+                        else if (text == " 4: Show entropy data set\n" && lang == "german")
+                        {
+                            return " 4: Zeige Datensatz Entropie\n";
+                        }
+                        else if (text == " 5: Edit enterprise configuration\n" && lang == "german")
+                        {
+                            return " 5: Bearbeiten Aufbau der Gesellschaft\n";
+                        }
+                        else if (text == " 6: Show menu\n" && lang == "german")
+                        {
+                            return " 6: Zeigen Sie das Menü\n";
+                        }
+                        else if (text == " 7: Show time\n" && lang == "german")
+                        {
+                            return " 7: Zeit zeigen\n";
+                        }
+                        else if (text == " 8: About\n" && lang == "german")
+                        {
+                            return " 8: über\n";
+                        }
+                        else if (text == "\n" && lang == "german")
+                        {
+                            return "\n";
+                        }
+                        else if (text == "Generating decision..." && lang == "german")
+                        {
+                            return "Generieren Entscheidung...";
+                        }
+                        else if (text == "Complete.\n" && lang == "german")
+                        {
+                            return "vervollständigen.\n";
+                        }
+                        else if (text == "Decision is\n" && lang == "german")
+                        {
+                            return "Entscheidung\n";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "german")
+                        {
+                            return "Drücken Sie eine beliebige Taste, um zum Menü zurückzukehren.\n";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "german")
+                        {
+                            return "Drücken Sie eine beliebige Taste, um zum Menü zurückzukehren.\n";
+                        }
+                        else if (text == "Invalid processor count, please run this on a computer that has at least one processor." && lang == "german")
+                        {
+                            return "Ungültige Anzahl von Prozessoren, führen Sie diese auf einem Computer mit mindestens einem Prozessor hat.";
+                        }
+                        else if (text == "Computer time problems." && lang == "german")
+                        {
+                            return "Probleme der Computer-Zeit.";
+                        }
+                        else if (text == "Invalid math result." && lang == "german")
+                        {
+                            return "Gültig mathematische Ergebnis.";
+                        }
+
+                        else if (text == "Invalid boolean result." && lang == "german")
+                        {
+                            return "Ungültige boolesche Ergebnis.";
+                        }
+                        else if (text == "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)" && lang == "german")
+                        {
+                            return "XML Engine Company Mott Entscheidungen (MEXDeMakE)";
+                        }
+                        else if (text == "Copyright © 2013 mott555. All rights reserved." && lang == "german")
+                        {
+                            return "Copyright © 2013 mott555. Alle Rechte vorbehalten.";
+                        }
+                        else if (text == "Version 2.1.2" && lang == "german")
+                        {
+                            return "Version 2.1.2";
+                        }
+                        else if (text == "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner." && lang == "german")
+                        {
+                            return "MEXDeMakE ist eine Entscheidung, Motor bereit für das Unternehmen auf XML-Protokolle und Industrie-Standard-Netzwerk. EnterpriseConfig.xml Fertigen Sie einfach auf Ihre geschäftlichen Anforderungen zu erfüllen und MEXDeMakE sorgfältig analysieren Ihre Bedürfnisse und generieren Tipps, damit Sie bessere Geschäftsentscheidungen zu treffen in einer fristgerechten Weise.";
+                        }
+                        else if (text == "Press enter to return to main menu." && lang == "german")
+                        {
+                            return "Drücken Sie die Eingabetaste, um zum Hauptmenü zurückzukehren.";
+                        }
+                        else if (text == "About:" && lang == "german")
+                        {
+                            return "über:";
+                        }
+                        else if (text == "Normal application termination" && lang == "german")
+                        {
+                            return "In der Nähe des gewöhnlichen";
+                        }
+                        else if (text == "Press any key to return to the menu.\n" && lang == "german")
+                        {
+                            return "Drücken Sie eine beliebige Taste, um zum Menü zurückzukehren.\n";
+                        }
+                        else if (text == "Shutting down..." && lang == "german")
+                        {
+                            return "ausgeschaltet...";
+                        }
+                        else if (text == "" && lang == "german")
+                        {
+                            return "";
+                        }
                         else
                         {
                             return "";
