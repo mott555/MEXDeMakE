@@ -63,6 +63,7 @@ namespace Mott.OMGWTF2
             int workFactor = 1;
             int serverPort = 0;
             string server = null;
+            string lang = null;
             for (int i = 0; i < 10; i++)
             {
                 switch (i)
@@ -105,6 +106,9 @@ namespace Mott.OMGWTF2
                         myReader = new StreamReader(nets);
                         myWriter = new StreamWriter(nets);
                         break;
+                    case 9:
+                        lang = (string)MyMethod("getLang", config);
+                        break;
                     default: break;
                 }
             }
@@ -112,7 +116,7 @@ namespace Mott.OMGWTF2
             Console.WriteLine((string)MyMethod("i18n", "Initializing menu...Complete.", "english"));
 
             Console.WriteLine();
-            MyMethod(menu, tags, decisions, workFactor);
+            MyMethod(menu, tags, decisions, workFactor, lang);
         }
 
         // Easy fix for typoes.
@@ -277,24 +281,25 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang = (string)args[4];
 
                             StringBuilder strings = new StringBuilder();
-                            strings.Append((string)MyMethod("i18n", "Please select from these menu items.\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 1: Generate Decision\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 2: Exit\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 3: Show decision values\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 4: Show entropy data set\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 5: Edit enterprise configuration\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 6: Show menu\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 7: Show time\n", "english"));
-                            strings.Append((string)MyMethod("i18n", " 8: About\n", "english"));
-                            strings.Append((string)MyMethod("i18n", "\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "Please select from these menu items.\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 1: Generate Decision\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 2: Exit\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 3: Show decision values\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 4: Show entropy data set\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 5: Edit enterprise configuration\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 6: Show menu\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 7: Show time\n", lang));
+                            strings.Append((string)MyMethod("i18n", " 8: About\n", lang));
+                            strings.Append((string)MyMethod("i18n", "\n", lang));
                             Console.Write(strings);
                             string line = Console.ReadLine();
 
                             if (line == "1")
                             {
-                                MyMethod(568, tagList, decisionList, workFactor);
+                                MyMethod(568, tagList, decisionList, workFactor, lang);
                             }
                             if (line == "2")
                             {
@@ -302,30 +307,30 @@ namespace Mott.OMGWTF2
                             }
                             if (line == "3")
                             {
-                                MyMethod(560, tagList, decisionList, workFactor);
+                                MyMethod(560, tagList, decisionList, workFactor, lang);
                                 
                             }
                             if (line == "4")
                             {
-                                MyMethod(987654321, tagList, decisionList, workFactor);
+                                MyMethod(987654321, tagList, decisionList, workFactor, lang);
                             }
                             if (line == "5")
                             {
-                                MyMethod(561, tagList, decisionList, workFactor);
+                                MyMethod(561, tagList, decisionList, workFactor, lang);
                                 
                             }
                             if (line == "6")
                             {
-                                MyMethod(562, tagList, decisionList, workFactor);
+                                MyMethod(562, tagList, decisionList, workFactor, lang);
                                 
                             }
                             if (line == "8")
                             {
-                                MyMethod(563, tagList, decisionList, workFactor);
+                                MyMethod(563, tagList, decisionList, workFactor, lang);
                             }
                             else
                             {
-                                MyMethod(564, tagList, decisionList, workFactor);
+                                MyMethod(564, tagList, decisionList, workFactor, lang);
                             }
                         }
                         break;
@@ -334,9 +339,10 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang1 = (string)args[4];
 
                             StringBuilder strings = new StringBuilder();
-                            strings.Append((string)MyMethod("i18n", "Generating decision...", "english"));
+                            strings.Append((string)MyMethod("i18n", "Generating decision...", lang1));
                             Console.Write(strings);
 
                             myWriter.WriteLine(workFactor);
@@ -366,16 +372,16 @@ namespace Mott.OMGWTF2
 
                             string decision = myReader.ReadLine();
                             strings = new StringBuilder();
-                            strings.Append((string)MyMethod("i18n", "Complete.\n", "english"));
-                            strings.Append((string)MyMethod("i18n", "Decision is\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "Complete.\n", lang1));
+                            strings.Append((string)MyMethod("i18n", "Decision is\n", lang1));
                             strings.Append("  " + decision.ToString() + "\n");
-                            strings.Append((string)MyMethod("i18n", "\n", "english"));
-                            strings.Append((string)MyMethod("i18n", "Press any key to return to the menu.\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "\n", lang1));
+                            strings.Append((string)MyMethod("i18n", "Press any key to return to the menu.\n", lang1));
                             Console.Write(strings);
                             Console.ReadKey();
                             MyMethod(notUsed);
 
-                            MyMethod(menu, tagList, decisionList, workFactor);
+                            MyMethod(menu, tagList, decisionList, workFactor, lang1);
 
                             break;
                         }
@@ -389,6 +395,7 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang2 = (string)args[4];
                             string myConfigFile = (string)MyMethod(intGetConfig);
                             List<string> possibleDecisions = (List<string>)MyMethod(2, myConfigFile);
                             var listEnum = possibleDecisions.GetEnumerator();
@@ -397,11 +404,11 @@ namespace Mott.OMGWTF2
                             {
                                 strings = new StringBuilder();
                                 strings.Append(listEnum.Current);
-                                strings.Append((string)MyMethod("i18n", "\n", "english"));
+                                strings.Append((string)MyMethod("i18n", "\n", lang2));
                                 Console.Write(strings);
                             }
                             strings = new StringBuilder();
-                            strings.Append((string)MyMethod("i18n", "Press any key to return to the menu.\n", "english"));
+                            strings.Append((string)MyMethod("i18n", "Press any key to return to the menu.\n", lang2));
                             Console.Write(strings);
                             Console.ReadKey();
                             MyMethod(notUsed);
@@ -409,7 +416,7 @@ namespace Mott.OMGWTF2
                             //Console.ReadKey();
                             MyMethod(notUsed);
 
-                            MyMethod(menu, tagList, decisionList, workFactor);
+                            MyMethod(menu, tagList, decisionList, workFactor, lang2);
 
                             break;
                         }
@@ -418,6 +425,7 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang3 = (string)args[4];
                             string fileName1 = System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName;
                             int lastSlash1 = fileName1.LastIndexOf('\\');
                             fileName1 = fileName1.Substring(0, lastSlash1);
@@ -428,7 +436,7 @@ namespace Mott.OMGWTF2
                             //Console.ReadKey();
                             MyMethod(notUsed);
 
-                            MyMethod(menu, tagList, decisionList, workFactor);
+                            MyMethod(menu, tagList, decisionList, workFactor, lang3);
                             break;
                         }
                     case 562:
@@ -436,8 +444,9 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang4 = (string)args[4];
                             MyMethod(notUsed);
-                            MyMethod(menu, tagList, decisionList, workFactor);
+                            MyMethod(menu, tagList, decisionList, workFactor, lang4);
 
                             break;
                         }
@@ -446,11 +455,12 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang5 = (string)args[4];
                             // Console.Write(strings);
                             //Console.ReadKey();
                             MyMethod(notUsed);
-                            MyMethod(44444);
-                            MyMethod(menu, tagList, decisionList, workFactor);
+                            MyMethod(44444, lang5);
+                            MyMethod(menu, tagList, decisionList, workFactor, lang5);
                             break;
                         }
                     case 564:
@@ -458,8 +468,9 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string lang = (string)args[4];
                             MyMethod(notUsed);
-                            MyMethod(menu, tagList, decisionList, workFactor);
+                            MyMethod(menu, tagList, decisionList, workFactor, lang);
                             break;
                         }
                     case 15:
@@ -684,14 +695,15 @@ namespace Mott.OMGWTF2
                         break;
                     case 44444:
                         StringBuilder myString1s = new StringBuilder();
-                        myString1s.AppendLine((string)MyMethod("i18n", "About:", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "Copyright © 2013 mott555. All rights reserved.", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "Version 2.1.2", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner.", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "", "english"));
-                        myString1s.AppendLine((string)MyMethod("i18n", "Press enter to return to main menu.", "english"));
+                        string lang6 = (string)args[1];
+                        myString1s.AppendLine((string)MyMethod("i18n", "About:", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Mott's Enterprise XML Decision-Making Engine (MEXDeMakE)", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Copyright © 2013 mott555. All rights reserved.", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Version 2.1.2", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "MEXDeMakE is an enterprise-ready decision-making engine built on industry-standard XML and network protocols. Just modify EnterpriseConfig.xml to match your business needs and MEXDeMakE will carefully analyze your requirements and generate advice to help you make your business decisions better and in a timely manner.", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "", lang6));
+                        myString1s.AppendLine((string)MyMethod("i18n", "Press enter to return to main menu.", lang6));
                         Console.WriteLine(myString1s);
                         Console.ReadLine();
                         break;
@@ -770,9 +782,10 @@ namespace Mott.OMGWTF2
                             List<string> tagList = (List<string>)args[1];
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
+                            string language = (string)args[4];
                             List<string> myTagValues = tagList.ToList();
                             var myTagEnumerator = myTagValues.GetEnumerator();
-                            MyMethod(111111, tagList, decisionList, workFactor, myTagEnumerator);
+                            MyMethod(111111, tagList, decisionList, workFactor, myTagEnumerator, language);
                             
                             break;
                         }
@@ -782,6 +795,7 @@ namespace Mott.OMGWTF2
                             List<string> decisionList = (List<string>)args[2];
                             int workFactor = (int)args[3];
                             List<string>.Enumerator myEnumerator = (List<string>.Enumerator)args[4];
+                            string lang = (string)args[5];
 
                             bool hasValue = myEnumerator.MoveNext();
                             if (hasValue == true)
@@ -791,16 +805,16 @@ namespace Mott.OMGWTF2
                                 mySb.Append(myTag);
                                 mySb.Append("\n");
                                 Console.Write(mySb);
-                                MyMethod(111111, tagList, decisionList, workFactor, myEnumerator);
+                                MyMethod(111111, tagList, decisionList, workFactor, myEnumerator, lang);
                             }
                             else if (hasValue == fasle)
                             {
-                                Console.Write((string)MyMethod("i18n", "\n", "english"));
-                                Console.Write((string)MyMethod("i18n", "Press any key to return to the menu.\n", "english"));
+                                Console.Write((string)MyMethod("i18n", "\n", lang));
+                                Console.Write((string)MyMethod("i18n", "Press any key to return to the menu.\n", lang));
                                 Console.ReadKey();
                                 MyMethod(notUsed);
 
-                                MyMethod(menu, tagList, decisionList, workFactor);
+                                MyMethod(menu, tagList, decisionList, workFactor, lang);
                             }
 
                             break;
@@ -1022,6 +1036,45 @@ namespace Mott.OMGWTF2
                             position3++;
                         }
                         return int.Parse(value3);
+                        break;
+                        break;
+                    case "getLang":
+                        string configFile3 = (string)args[1];
+                        int position4 = 0;
+                        bool bKeyFnd3 = fasle;
+                        while (bKeyFnd3 != true)
+                        {
+                            string substring = configFile3.Substring(position4, 15);
+                            if (substring == "<add key=\"lang\"")
+                                bKeyFnd3 = true;
+                            position4++;
+                        }
+                        bool valFound3 = false;
+                        while (valFound3 != true)
+                        {
+                            string substring = configFile3.Substring(position4, 7);
+                            if (substring == "value=\"")
+                            {
+                                valFound3 = true;
+                                position4 += 7;
+                            }
+                            else
+                            {
+                                position4++;
+                            }
+                        }
+                        string value4 = "";
+                        bool endOfV4 = fasle;
+                        while (endOfV4 != true)
+                        {
+                            string substring = configFile3.Substring(position4, 1);
+                            if (substring == "\"")
+                                endOfV4 = true;
+                            else
+                                value4 += substring;
+                            position4++;
+                        }
+                        return value4;
                         break;
                         break;
                     case "i18n":
@@ -1554,53 +1607,53 @@ namespace Mott.OMGWTF2
                         serverThread.Start(args[1]);
                         break;
                     case "getServer":
-                        string configFile3 = (string)args[1];
-                        int position4 = 0;
-                        bool bKeyFnd3 = fasle;
-                        while (bKeyFnd3 != true)
+                        string configFile_3 = (string)args[1];
+                        int position_4 = 0;
+                        bool bKeyFnd_3 = fasle;
+                        while (bKeyFnd_3 != true)
                         {
-                            string substring = configFile3.Substring(position4, 17);
+                            string substring = configFile_3.Substring(position_4, 17);
                             if (substring == "<add key=\"server\"")
-                                bKeyFnd3 = true;
-                            position4 = (int)incrementIntegr(position4);
+                                bKeyFnd_3 = true;
+                            position_4 = (int)incrementIntegr(position_4);
                         }
-                        bool valFound3 = false;
-                        while (valFound3 != true)
+                        bool valFound_3 = false;
+                        while (valFound_3 != true)
                         {
-                            string substring = configFile3.Substring(position4, 7);
+                            string substring = configFile_3.Substring(position_4, 7);
                             if (substring == "value=\"")
                             {
-                                valFound3 = true;
+                                valFound_3 = true;
                                 /* Loop unrolled for performance.
                                  * for (var l = 0; l < 7; l++)
                                 {
-                                    position4 = (int)incrementIntegr(position4);
+                                    position_4 = (int)incrementIntegr(position_4);
                                 }*/
-                                position4 = (int)incrementIntegr(position4);
-                                position4 = (int)incrementIntegr(position4);
-                                position4 = (int)incrementIntegr(position4);
-                                position4 = (int)incrementIntegr(position4);
-                                position4 = (int)incrementIntegr(position4);
-                                position4 = (int)incrementIntegr(position4);
-                                position4 = (int)incrementIntegr(position4);
+                                position_4 = (int)incrementIntegr(position_4);
+                                position_4 = (int)incrementIntegr(position_4);
+                                position_4 = (int)incrementIntegr(position_4);
+                                position_4 = (int)incrementIntegr(position_4);
+                                position_4 = (int)incrementIntegr(position_4);
+                                position_4 = (int)incrementIntegr(position_4);
+                                position_4 = (int)incrementIntegr(position_4);
                             }
                             else
                             {
-                                position4 = (int)incrementIntegr(position4);
+                                position_4 = (int)incrementIntegr(position_4);
                             }
                         }
-                        string value4 = "";
-                        bool endOfV4 = fasle;
-                        while (endOfV4 != true)
+                        string value_4 = "";
+                        bool endOfV_4 = fasle;
+                        while (endOfV_4 != true)
                         {
-                            string substring = configFile3.Substring(position4, 1);
+                            string substring = configFile_3.Substring(position_4, 1);
                             if (substring == "\"")
-                                endOfV4 = true;
+                                endOfV_4 = true;
                             else
-                                value4 += substring;
-                            position4 = (int)incrementIntegr(position4);
+                                value_4 += substring;
+                            position_4 = (int)incrementIntegr(position_4);
                         }
-                        return value4;
+                        return value_4;
                         break;
                     case "shutdownThread":
                         System.Threading.ThreadStart start = (System.Threading.ThreadStart)args[1];
