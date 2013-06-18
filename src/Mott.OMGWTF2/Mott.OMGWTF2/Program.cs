@@ -345,32 +345,45 @@ namespace Mott.OMGWTF2
                             strings.Append((string)MyMethod("i18n", "Generating decision...", lang1));
                             Console.Write(strings);
 
-                            myWriter.WriteLine(workFactor);
-                            int decisionCount = (int)MyMethod(7764, decisionList);
-                            myWriter.WriteLine(decisionCount);
-                            try
-                            {
-                                for (int asdf = 0; asdf < 100000; asdf++)
-                                {
-                                    string d = decisionList[asdf];
-                                    myWriter.WriteLine(d);
-                                }
-                            }
-                            catch { }
-                            int tagCount = (int)MyMethod(7764, tagList);
-                            myWriter.WriteLine(tagCount);
+                            strings = new StringBuilder();
+                            strings.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
+                            strings.AppendLine("<EnterpriseDecisionNetworkDataPacket>");
+                            strings.AppendLine("<TagList>");
                             try
                             {
                                 for (int asdf = 0; asdf < 100000; asdf++)
                                 {
                                     string d = tagList[asdf];
-                                    myWriter.WriteLine(d);
+                                    strings.AppendLine("<Tag>" + d + "</Tag>");
                                 }
                             }
                             catch { }
+                            strings.AppendLine("</TagList>");
+                            strings.AppendLine("<DecisionList>");
+                            try
+                            {
+                                for (int asdf = 0; asdf < 100000; asdf++)
+                                {
+                                    string d = decisionList[asdf];
+                                    strings.AppendLine("<Decision>" + d + "</Decision>");
+                                }
+                            }
+                            catch { }
+                            strings.AppendLine("</DecisionList>");
+
+                            strings.AppendLine("<WorkFactor>" + workFactor + "</WorkFactor>");
+                            strings.AppendLine("</EnterpriseDecisionNetworkDataPacket>");
+                            myWriter.Write(strings.ToString());
                             myWriter.Flush();
 
-                            string decision = myReader.ReadLine();
+                            string xmlDec = myReader.ReadLine();
+                            string packetStartTag = myReader.ReadLine();
+                            string resultTag = myReader.ReadLine();
+                            string packetEndTag = myReader.ReadLine();
+
+                            string decision = resultTag.Substring(8);
+                            decision = decision.Substring(0, decision.Length - 9);
+
                             strings = new StringBuilder();
                             strings.Append((string)MyMethod("i18n", "Complete.\n", lang1));
                             strings.Append((string)MyMethod("i18n", "Decision is\n", lang1));
@@ -716,29 +729,51 @@ namespace Mott.OMGWTF2
                     case 100:
                         Stream theStream = (Stream)args[1];
                         StreamReader theReader = new StreamReader(theStream);
+                        {
+                            string xmlDec = theReader.ReadLine();
+                            string packetStart = theReader.ReadLine();
+                            string tagStart = theReader.ReadLine();
 
-                        string strWorkFactor = theReader.ReadLine();
-                        string strDecisionCount = theReader.ReadLine();
-                        List<string> theDecisions = new List<string>();
-                        int theCounter = 0;
-                        while (theCounter < int.Parse(strDecisionCount))
-                        {
-                            theCounter++;
-                            theDecisions.Add(theReader.ReadLine());
+                            List<string> theTags = new List<string>();
+                            string myTemp = theReader.ReadLine();
+                            while (myTemp != "</TagList>")
+                            {
+                                myTemp = myTemp.Substring(5);
+                                myTemp = myTemp.Substring(0, myTemp.Length - 6);
+                                theTags.Add(myTemp);
+                                myTemp = theReader.ReadLine();
+                            }
+                            List<string> theDecisions = new List<string>();
+                            string decisionStart = theReader.ReadLine();
+                            myTemp = theReader.ReadLine();
+                            while (myTemp != "</DecisionList>")
+                            {
+                                myTemp = myTemp.Substring(10);
+                                myTemp = myTemp.Substring(0, myTemp.Length - 11);
+                                theDecisions.Add(myTemp);
+                                myTemp = theReader.ReadLine();
+                            }
+
+
+                            string strWorkFactor = theReader.ReadLine();
+                            strWorkFactor = strWorkFactor.Substring(12);
+                            strWorkFactor = strWorkFactor.Substring(0, strWorkFactor.Length - 13);
+
+                            string theDecision = (string)MyMethod(generateRandomNo, theTags, theDecisions, int.Parse(strWorkFactor));
+
+                            StringBuilder mysb = new StringBuilder();
+                            mysb.AppendLine("<?xml version=\"1.0\" encoding=\"utf-8\" ?>");
+                            mysb.AppendLine("<EnterpriseDecisionNetworkResultDataPacket>");
+                            mysb.AppendLine("<Result>" + theDecision + "</Result>");
+                            mysb.AppendLine("</EnterpriseDecisionNetworkResultDataPacket>");
+
+
+                            StreamWriter theWriter = new StreamWriter(theStream);
+                            theWriter.Write(mysb);
+                            theWriter.Flush();
+                            MyMethod(100, theStream);
+                            break;
                         }
-                        string strTagCount = theReader.ReadLine();
-                        List<string> theTags = new List<string>();
-                        while (theCounter < int.Parse(strDecisionCount) + int.Parse(strTagCount))
-                        {
-                            theCounter++;
-                            theTags.Add(theReader.ReadLine());
-                        }
-                        string theDecision = (string)MyMethod(generateRandomNo, theTags, theDecisions, int.Parse(strWorkFactor));
-                        StreamWriter theWriter = new StreamWriter(theStream);
-                        theWriter.WriteLine(theDecision);
-                        theWriter.Flush();
-                        MyMethod(100, theStream);
-                        break;
                     case 88:
                         string configFile2 = (string)args[1];
                         int position3 = 0;
